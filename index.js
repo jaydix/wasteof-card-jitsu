@@ -1,17 +1,21 @@
 import {
-    Game
+    Game,
+    Util as uti,
+    GameList
 }
 from './libs/Game.js'
 
 import {
-    Wasteof2, Wasteof2Auth
+    Wasteof2Auth
 }
 from 'wasteof-client'
 
 const username = 'card-jitsu'
 const client = new Wasteof2Auth(username, process.env['PASSWORD'])
 
-var game = null
+const Util = new uti()
+
+var activeGames = new GameList()
 client.login().then(function() {
     console.log('logged in as @' + username)
     client.listen(function(AAAA, uselessHahahahah) {
@@ -27,6 +31,7 @@ client.login().then(function() {
                     let args = msg.slice(prefix.length).split(' ')
                     const command = args.shift()
                     console.log('gah', args, command)
+                    var game = activeGames.getUserGame(data.from.name)
                     switch (command) {
                         case 'start':
                         case 'play':
@@ -36,10 +41,10 @@ client.login().then(function() {
                         case 'card jitsu':
                         case 'cardjitsu':
                             if (game == null) {
-                                game = new Game()
+                                game = activeGames.push(new Game(data.from.name))
                                 client.chatMessage(`<p>game started!<p><p>your hand consists of ${game.playerHand.handToString()}, and you have 20 seconds to choose one. use @card-jitsu card [color] [type] [value] to play a card.</p>`)
                             } else {
-                                client.chatMessage(`a game is already happening!`)
+                                client.chatMessage(`you've already started a game!`)
                             }
                             break;
 
@@ -80,9 +85,9 @@ client.login().then(function() {
 
                         case 'debug':
                             if (game !== null){
-                            console.log(returnPlayedCards())
+                            console.log(Util.cardArrayToString(game.playerPlayedCards))
                             console.log(`[${[].toString()}]`)
-                            client.chatMessage(`<p><strong>CARD JITSU DEBUG INFO</strong></p><p><code>playerHand</code>: ${game.playerHand.handToStringDebug()}</p><p>${returnPlayedCards()}</p>`)
+                            client.chatMessage(`<p><strong>CARD JITSU DEBUG INFO</strong></p><p><code>playerHand</code>: ${game.playerHand.handToStringDebug()}</p><p><code>playerPlayedCards</code>: ${Util.cardArrayToString(game.playerPlayedCards)}</p><p><code>opponentHand</code>: ${game.opponentHand.handToStringDebug()}</p><p><code>opponentPlayedCards</code>: ${Util.cardArrayToString(game.opponentPlayedCards)}</p>`)
                             }
                     }
                 
@@ -93,9 +98,5 @@ client.login().then(function() {
         }
     })
 })
-
-function returnPlayedCards() {
-    return `[${game.playerPlayedCards.toString()}]`
-}
 
 //const game = new Game()
