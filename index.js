@@ -66,8 +66,10 @@ client.login().then(function() {
                   console.log(game.playerHand)
                   if (game.p1Turn(args[0], args[1], parseInt(args[2]), function(success, pC, c) {
                     if (success == true) {
+                      game.plaWinningCards.push(pC)
                       client.chatMessage(`your ${pC.color} ${pC.type} card of value ${pC.value} beat the opponent's ${c.color} ${c.type} card of value ${c.value}`)
                     } else if (success == false) {
+                      game.oppWinningCards.push(pC)
                       client.chatMessage(`your ${pC.color} ${pC.type} card of value ${pC.value} lost against the opponent's ${c.color} ${c.type} card of value ${c.value}`)
                     } else {
                       client.chatMessage(`you and the opponent's cards ended up in a draw`)
@@ -87,7 +89,7 @@ client.login().then(function() {
               if (game !== null) {
                 console.log(Util.cardArrayToString(game.playerPlayedCards))
                 console.log(`[${[].toString()}]`)
-                client.chatMessage(`<p><strong>CARD JITSU DEBUG INFO</strong></p><p><code>playerHand</code>: ${game.playerHand.handToStringDebug()}</p><p><code>playerPlayedCards</code>: ${Util.cardArrayToString(game.playerPlayedCards)}</p><p><code>opponentHand</code>: ${game.opponentHand.handToStringDebug()}</p><p><code>opponentPlayedCards</code>: ${Util.cardArrayToString(game.opponentPlayedCards)}</p>`)
+                client.chatMessage(`<p><strong>CARD JITSU DEBUG INFO</strong></p><p><code>playerHand</code>: ${game.playerHand.handToStringDebug()}</p><p><code>plaWinningCards</code>: ${Util.cardArrayToString(game.plaWinningCards)}</p><p><code>opponentHand</code>: ${game.opponentHand.handToStringDebug()}</p><p><code>oppWinningCards</code>: ${Util.cardArrayToString(game.oppWinningCards)}</p>`)
               }
           }
 

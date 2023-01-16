@@ -11,8 +11,8 @@ class Game {
     this.opponentHand = new Hand(handMax);
     console.log(this.playerHand, this.opponentHand);
 
-    this.opponentPlayedCards = [];
-    this.playerPlayedCards = [];
+    this.oppWinningCards = [];
+    this.plaWinningCards = [];
   }
 
   p1Turn(color, type, value, oppPlayCallback) {
