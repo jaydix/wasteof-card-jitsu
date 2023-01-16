@@ -62,6 +62,6 @@ class Hand {
 
   // too lazy to change all instances of this function so i made it call another one :troll:
   handToStringDebug() {
-    return new Util().cardArrayToString(this.hand)
+    return Util.cardArrayToString(this.hand)
   }
 }

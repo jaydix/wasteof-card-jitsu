@@ -49,10 +49,9 @@ class Game {
   }
 }
 
-class Util {
+const Util = {
   // multipurpose util class
-  // remember to initialize a variable as new Util() before using
-  cardArrayToString(arr) { // converts an array of Cards - usually a Hand - to an array
+  cardArrayToString: (arr) => { // converts an array of Cards - usually a Hand - to an array
     var toReturn = '['
     arr.forEach(c => {
       toReturn += ` ${c.toString()},`
