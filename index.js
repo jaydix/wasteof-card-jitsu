@@ -69,7 +69,7 @@ client.login().then(function() {
                       game.plaWinningCards.push(pC)
                       client.chatMessage(`your ${pC.color} ${pC.type} card of value ${pC.value} beat the opponent's ${c.color} ${c.type} card of value ${c.value}`)
                     } else if (success == false) {
-                      game.oppWinningCards.push(pC)
+                      game.oppWinningCards.push(c)
                       client.chatMessage(`your ${pC.color} ${pC.type} card of value ${pC.value} lost against the opponent's ${c.color} ${c.type} card of value ${c.value}`)
                     } else {
                       client.chatMessage(`you and the opponent's cards ended up in a draw`)

@@ -41,7 +41,6 @@ class Game {
       ];
     console.log(c);
     this.opponentHand.hand.splice(this.opponentHand.hand.indexOf(c), 1);
-    this.opponentPlayedCards.push(c);
     this.opponentHand.pushNewCard();
     console.log(`p2 played a ${c.color} ${c.type} card with value ${c.value}`);
     playCallback(playerCard.checkIfCardBeatsOtherCard(c.type, c.value), playerCard, c) // called in index.js
