@@ -22,7 +22,6 @@ class Game {
     console.log(contains);
     if (contains[0] == true) {
       this.playerHand.hand.splice(contains[1], 1);
-      this.playerPlayedCards.push(c);
       console.log(
         `p1 played a ${c.color} ${c.type} card with value ${c.value}`
       );
