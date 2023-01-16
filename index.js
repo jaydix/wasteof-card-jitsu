@@ -31,7 +31,7 @@ client.login().then(function() {
                     let args = msg.slice(prefix.length).split(' ')
                     const command = args.shift()
                     console.log('gah', args, command)
-                    var game = activeGames.getUserGame(data.from.name)
+                    var game = activeGames.getUserGame(data.from.id)
                     switch (command) {
                         case 'start':
                         case 'play':
@@ -41,7 +41,7 @@ client.login().then(function() {
                         case 'card jitsu':
                         case 'cardjitsu':
                             if (game == null) {
-                                game = activeGames.push(new Game(data.from.name))
+                                game = activeGames.push(new Game(data.from.id))
                                 client.chatMessage(`<p>game started!<p><p>your hand consists of ${game.playerHand.handToString()}, and you have 20 seconds to choose one. use @card-jitsu card [color] [type] [value] to play a card.</p>`)
                             } else {
                                 client.chatMessage(`you've already started a game!`)
